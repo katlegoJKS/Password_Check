@@ -1,6 +1,6 @@
 from password_checker.password_checker import Password_check
 
-password = 'Katmat$992'
+password = 'aaAAA$$$$1'
 pass_checker = Password_check(password)
 
 length = len(password)

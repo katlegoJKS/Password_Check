@@ -1,6 +1,6 @@
 from password_checker.password_checker import Password_check
 
-password = 'Katmat$992'
+password = 'aA$1Aa$2'
 pass_checker = Password_check(password)
 
 def test_lowercase():
