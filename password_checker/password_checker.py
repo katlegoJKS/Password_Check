@@ -1,44 +1,56 @@
-class Password_check:
-    
-    def __init__(self):
-        pass
+class Password_check(object):
 
-    def password_is_valid(self,password):
+    def __init__(self,password):
+        self.password = str(password)
 
-        number = ['0','1','2','3','4','5','6','7','8','9']
-        letter_lowercase = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','s','o','p','q','r','s','t','u','v','w','x','y','z']
-        letter_uppercase = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-        special_cases = ['{','}','%','&','*','_','$']
-        result = True
+    def lowercase(self):
+        lowercase = any(c.islower() for c in self.password)
+        return lowercase
 
-        if len(password) < 8:
-            result = False
+    def uppercase(self):
+        uppercase = any(c.isupper() for c in self.password)
+        return uppercase
 
-        if not any(char.isdigit() for char in password):
-            result = False
+    def special_case(self):
+        special_sym = "$ @ # %"
+        special_sym = any(c in special_sym for c in self.password)
+        return special_sym
 
-        if not any(char.isupper() for char in password):
-            result = False
+    def numbers(self):
+        numbers_digit = any(c.isdigit for c in self.password)
+        return numbers_digit
 
-        if not any(char.islower() for char in password):
-            result = False
+    def password_is_valid(self):
+        lowercase = self.lowercase()
+        uppercase = self.uppercase()
+        numbers = self.numbers()
+        special_case = self.special_case()
 
-        if not any(char in special_cases for char in password):
-            result = False
+        # length = len(self.password)
+
+        result = lowercase and uppercase and special_case and numbers
+
         if result:
-            return result
+            print("Password meets all necessary requirements.")
+            return True
+
+        elif not lowercase:
+            print("Password must have atleast one lowercase letter.")
+            return False
+
+        elif not uppercase:
+            print("Password must have atleast one uppercase letter.")
+            return False
+
+        elif not numbers:
+            print("Password must have atleast one digit/number.")
+            return False
+
+        elif not special_case:
+            print("Password must have atleast one special character (i.e $, # etc...).")
+        else:
+            pass
 
 
-p = Password_check()
-p.password_is_valid('')
-
-def main():
-    password = 'Kat$mss12'
-
-    if (p.password_is_valid(password)):
-        print("password is valid")
-    else:
-        print("password is invalid")
-
-if __name__ == "__main__":
-    main()
+c = Password_check('Katmat$992')
+print(c.password_is_valid())
